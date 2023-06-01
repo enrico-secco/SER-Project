@@ -5,9 +5,10 @@ import { Inputs } from "@components/molecules/inputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";
+import { convertFileToBase64 } from "@/utils/convertFileToBase64";
 
 interface IProviderData {
-  perfilPhoto: string;
+  profilePic: FileList;
   name: string;
   phone: string;
   email: string;
@@ -18,7 +19,6 @@ interface IProviderData {
 export const CreateProvider = () => {
   const form = useForm<IProviderData>({
     defaultValues: {
-      perfilPhoto: "",
       name: "",
       phone: "",
       email: "",
@@ -28,8 +28,9 @@ export const CreateProvider = () => {
     resolver: yupResolver(form_validation),
   });
 
-  const handleSubmit = (onValid: IProviderData) => {
-    console.log(onValid);
+  const handleSubmit = async (onValid: IProviderData) => {
+    const fotoBase64 = await convertFileToBase64(onValid.profilePic[0]);
+    console.log(fotoBase64);
   }
 
   return (
@@ -50,7 +51,7 @@ export const CreateProvider = () => {
               label="foto de perfil"
               isRequired
               form={form}
-              name="profilePhoto"
+              name="profilePic"
             />
           </Grid.Item>
           <Grid.Item column={12}>

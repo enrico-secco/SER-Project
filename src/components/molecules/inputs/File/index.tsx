@@ -17,6 +17,8 @@ export const File = ({ label, isRequired, form, name }: IFileProps) => {
     return form.getFieldState(name).error;
   }, [form.formState]);
 
+  const spanMessage: string = file?.[0].name ?? "Selecione uma foto de perfil";
+
   return (
     <>
       <Container>
@@ -25,7 +27,7 @@ export const File = ({ label, isRequired, form, name }: IFileProps) => {
           <ContainerIcon>
             <Icon name="image" size="lg" color="#366EC2" />
           </ContainerIcon>
-          <span>{file?.[0].name ?? "Selecione uma foto de perfil"}</span>
+          <span>{spanMessage}</span>
         </DropZone>
         <input id="field-file" type="file" {...form.register(name)} />
       </Container>

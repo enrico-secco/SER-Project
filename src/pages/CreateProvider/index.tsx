@@ -28,6 +28,10 @@ export const CreateProvider = () => {
     resolver: yupResolver(form_validation),
   });
 
+  const handleSubmit = (onValid: IProviderData) => {
+    console.log(onValid);
+  }
+
   return (
     <>
       <Box>
@@ -102,9 +106,7 @@ export const CreateProvider = () => {
           <Grid.Item column={2}>
             <Button.Default
               text="Criar prestador"
-              onClick={form.handleSubmit((onValid) => {
-                console.log(onValid);
-              })}
+              onClick={form.handleSubmit(handleSubmit)}
             />
           </Grid.Item>
         </Grid.Container>

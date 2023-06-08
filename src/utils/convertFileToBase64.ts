@@ -1,10 +1,17 @@
-export const convertFileToBase64 = (file: File) => {
-  return new Promise((resolve, reject) => {
+export const convertFileToBase64 = (file?: File) => {
+  console.log(file);
+  return new Promise<any>((resolve, reject) => {
     const writeFile = new FileReader();
-    writeFile.readAsDataURL(file);
-    writeFile.onload = () => {
-      resolve(writeFile.result);
-    };
+    if (file) {
+      writeFile.readAsDataURL(file);
+      writeFile.onload = () => {
+        if (writeFile.result) {
+          resolve(writeFile.result);
+        }
+        resolve(null);
+      };
+    }
+    resolve(null);
     writeFile.onerror = (error) => {
       reject(error);
     };

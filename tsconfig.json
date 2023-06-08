@@ -8,6 +8,8 @@
       "@interfaces/*": ["./src/interfaces/*"],
       "@pages/*": ["./src/pages/*"],
       "@routes/*": ["./src/routes/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

@@ -1,7 +1,16 @@
 import * as yup from "yup";
 
 export const form_validation = yup.object().shape({
-  profilePhoto: yup.string(),
+  profilePic: yup
+    .mixed<FileList>()
+    .test(
+      "fileSize",
+      "Only documents up to 2MB are permitted.",
+      (files) =>
+        !files ||
+        files.length === 0 ||
+        Array.from(files).every((file) => file.size <= 2_000_000)
+    ),
   name: yup
     .string()
     .required("O nome e obrigatorio")
@@ -11,7 +20,7 @@ export const form_validation = yup.object().shape({
     .email("O email deve ser valido")
     .required("O email e obrigatorio"),
   phone: yup
-    .string()
+    .number()
     .required("O telefone e obrigatorio")
     .min(8, "Minimo de 8 caracteres"),
   cpf: yup

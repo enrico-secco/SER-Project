@@ -5,33 +5,30 @@ import { Inputs } from "@components/molecules/inputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";
-import { convertFileToBase64 } from "@/utils/convertFileToBase64";
-
-interface IProviderData {
-  profilePic: FileList;
-  name: string;
-  phone: string;
-  email: string;
-  cpf: string;
-  bio: string;
-}
+import { convertFileToBase64 } from "@utils/convertFileToBase64";
+import { TCreateProviderData, createProvider } from "@services/api/providers";
+import { useMutation } from "react-query";
 
 export const CreateProvider = () => {
-  const form = useForm<IProviderData>({
-    defaultValues: {
-      name: "",
-      phone: "",
-      email: "",
-      cpf: "",
-      bio: ""
-    },
+  const form = useForm<TCreateProviderData>({
     resolver: yupResolver(form_validation),
   });
 
-  const handleSubmit = async (onValid: IProviderData) => {
-    const fotoBase64 = await convertFileToBase64(onValid.profilePic[0]);
-    console.log(fotoBase64);
-  }
+  const { mutate } = useMutation({
+    mutationFn: (body: TCreateProviderData) => {
+      return createProvider(body);
+    },
+    onSuccess: (success) => {},
+    onError: (error) => {},
+  });
+
+  const handleSubmit = async (onValid: TCreateProviderData) => {
+    const profilePicBase64 = await convertFileToBase64(
+      onValid.profilePic[0] as File
+    );
+    onValid.profilePic = profilePicBase64;
+    mutate(onValid);
+  };
 
   return (
     <>

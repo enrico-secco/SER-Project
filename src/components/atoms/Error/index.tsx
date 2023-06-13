@@ -1,4 +1,4 @@
-import { ErrorStyled } from "@/pages/CreateProvider/styles";
+import { ErrorStyled } from "./styles";
 
 interface IErrorProps {
   text?: string;

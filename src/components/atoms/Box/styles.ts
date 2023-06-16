@@ -11,7 +11,6 @@ export const Container = styled.div<IContainerProps>`
   padding: 1rem;
   border-radius: 5px;
   background: #fff;
-  width: 100%;
 
   ${(props) => `
     margin-top: ${props.marginTop ?? "0px"};

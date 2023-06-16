@@ -1,20 +1,17 @@
-import { PropsWithChildren } from "react";
-import { ContainerBody, Column } from "./styles";
+import { IExtractorObject, ITableProps } from "../defaultSettings";
+import { ContainerHeader, ContainerRow } from "./styles";
 
-interface IHeaderProps {
-  keyExtractor: (item: any) => string | number;
-  labelExtractor: (item: any) => string;
-  list: any[];
-}
+interface IHeaderProps<T extends IExtractorObject>
+  extends Pick<ITableProps<T>, "columns"> {}
 
-export const Header = (props: PropsWithChildren<IHeaderProps>) => {
+export const Header = <T extends IExtractorObject>({
+  columns,
+}: IHeaderProps<T>) => {
   return (
-    <ContainerBody>
-      {props.list.map((col) => (
-        <Column key={props.keyExtractor(col)}>
-          {props.labelExtractor(col)}
-        </Column>
+    <ContainerHeader>
+      {columns.map((column) => (
+        <ContainerRow key={String(column.key)}>{column.label}</ContainerRow>
       ))}
-    </ContainerBody>
+    </ContainerHeader>
   );
 };

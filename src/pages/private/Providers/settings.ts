@@ -1,4 +1,4 @@
-import { IColumnsProps } from "@/components/molecules/Table";
+import { IColumnsProps } from "@/components/molecules/Table/defaultSettings";
 import { IProvider } from "@/interfaces/models";
 
 export const headers: IColumnsProps<IProvider>[] = [
@@ -13,5 +13,13 @@ export const headers: IColumnsProps<IProvider>[] = [
   {
     key: "cpf",
     label: "cpf",
+  },
+  {
+    key: "bio",
+    label: "bio",
+  },
+  {
+    key: "bio",
+    label: "bio2",
   },
 ];

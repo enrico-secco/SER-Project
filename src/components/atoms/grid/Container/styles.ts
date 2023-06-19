@@ -1,5 +1,5 @@
+import { IntRange } from "@/interfaces/types/intRange.types";
 import styled from "styled-components";
-import { IntRange } from "../../../../interfaces/utils-types";
 
 interface IGridContainerProps {
   columns: IntRange<1, 13>;

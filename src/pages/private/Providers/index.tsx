@@ -53,10 +53,6 @@ export const Providers = () => {
           </Box>
         </Grid.Item>
       </Grid.Container>
-      <Box marginTop="20px">
-        {/* <Table.Header></Table.Header> */}
-        {/* <Table.Body></Table.Body> */}
-      </Box>
     </>
   );
 };

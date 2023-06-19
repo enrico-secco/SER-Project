@@ -1,4 +1,5 @@
 import { IExtractorObject, ITableProps } from "../defaultSettings";
+import { Container, ContainerRow, ContainerRowColumn } from "./styles";
 
 export const Body = <T extends IExtractorObject>({
   columns,
@@ -6,14 +7,14 @@ export const Body = <T extends IExtractorObject>({
   rowsProps,
 }: ITableProps<T>) => {
   return (
-    <tbody>
+    <Container>
       {rows.map((row) => (
-        <tr key={rowsProps.keyExtractor(row)}>
+        <ContainerRow key={rowsProps.keyExtractor(row)}>
           {columns.map((column) => (
-            <td>{row[column.key]}</td>
+            <ContainerRowColumn>{row[column.key]}</ContainerRowColumn>
           ))}
-        </tr>
+        </ContainerRow>
       ))}
-    </tbody>
+    </Container>
   );
 };

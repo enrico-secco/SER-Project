@@ -8,14 +8,14 @@ export const ContainerHeader = styled.tr`
 `;
 
 export const ContainerRow = styled.th`
-  color: #445566;
-  font-weight: 600;
-  font-size: 0.9rem;
+  text-align: left;
   text-transform: uppercase;
-  padding: 0.5rem;
-  vertical-align: top;
+  color: #223344;
+  font-size: 0.85rem;
   overflow-wrap: break-word;
-  max-width: 300px;
+  vertical-align: top;
+  padding: 0.5rem;
   inline-size: 100%;
+  max-width: 300px;
   writing-mode: horizontal-tb;
 `;

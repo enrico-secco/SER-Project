@@ -9,7 +9,7 @@ export const Body = <T extends IExtractorObject>({
   return (
     <Container>
       {rows.map((row) => (
-        <ContainerRow key={rowsProps.keyExtractor(row)}>
+        <ContainerRow onClick={() => rowsProps.rowAction?.(row)} key={rowsProps.keyExtractor(row)}>
           {columns.map((column) => (
             <ContainerRowColumn>{row[column.key]}</ContainerRowColumn>
           ))}

@@ -18,8 +18,4 @@ export const headers: IColumnsProps<IProvider>[] = [
     key: "bio",
     label: "bio",
   },
-  {
-    key: "bio",
-    label: "bio2",
-  },
 ];

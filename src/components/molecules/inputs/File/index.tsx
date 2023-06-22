@@ -17,7 +17,7 @@ export const File = ({ label, isRequired, form, name }: IFileProps) => {
     return form.getFieldState(name).error;
   }, [form.formState]);
 
-  const spanMessage: string = file?.[0].name ?? "Selecione uma foto de perfil";
+  const spanMessage: string = file?.[0]?.name ?? "Selecione uma foto de perfil";
 
   return (
     <>

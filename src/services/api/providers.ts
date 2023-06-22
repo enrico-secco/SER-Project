@@ -1,5 +1,6 @@
 import { IProvider } from "@/interfaces/models";
 import { api } from "../api";
+import { ISuccessResponse } from "@/interfaces/apiResponse";
 
 export interface IGetProviderRequest {
   name?: string;
@@ -11,8 +12,12 @@ export const getProviders = (params: IGetProviderRequest) => {
   });
 };
 
+export const findProviderById = (provider_id: string) => {
+  return api.get<IProvider>(`/providers/${provider_id}`);
+};
+
 export type TCreateProviderData = Omit<IProvider, "id">;
 
 export const createProvider = (body: TCreateProviderData) => {
-  return api.post<any>("/providers", body);
+  return api.post<ISuccessResponse>("/providers", body);
 };

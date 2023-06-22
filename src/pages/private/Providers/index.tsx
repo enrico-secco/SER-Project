@@ -8,18 +8,24 @@ import { useQuery } from "react-query";
 import { getProviders } from "@services/api/providers";
 import { Table } from "@/components/molecules/Table";
 import { headers } from "./settings";
+import { useQueryString } from "@/hook/useQueryString";
+
+interface IFormProps {
+  name: string
+}
 
 export const Providers = () => {
   const navigate = useNavigate();
-  const form = useForm();
-  const filter = form.watch("filter");
+  const form = useForm<IFormProps>();
+
+  const [params, setParams] = useQueryString<IFormProps>({
+    name: 'batata'
+  });
 
   const { data } = useQuery({
-    queryKey: ["get_all_providers", filter],
+    queryKey: ["get_all_providers", params.name],
     queryFn: () =>
-      getProviders({
-        name: filter,
-      }).then((res) => res.data),
+      getProviders(params).then((res) => res.data),
   });
 
   return (
@@ -40,6 +46,7 @@ export const Providers = () => {
             name="filter"
             placeholder="Pesquise por um usuario"
           />
+          <Button.Default text="Submit" type="button" onClick={form.handleSubmit((onValid) => setParams(onValid))}/>
         </Grid.Item>
         <Grid.Item column={12}>
           <Box>
@@ -48,6 +55,7 @@ export const Providers = () => {
               rows={data ?? []}
               rowsProps={{
                 keyExtractor: (item) => item.id,
+                rowAction: (item) => navigate(`/providers/${item.id}`),
               }}
             />
           </Box>

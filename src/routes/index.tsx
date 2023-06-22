@@ -25,7 +25,7 @@ export const Routes = () => {
       {/* {Public} */}
       <Route path="/auth">
         <Route path="sign-in" element={<SignIn />}></Route>
-        <Route path="*" element={<Navigate to="/auth/sign-in" />}></Route>
+        {/* <Route path="*" element={<Navigate to="/auth/sign-in" />}></Route> */}
       </Route>
 
       {/* {Private} */}

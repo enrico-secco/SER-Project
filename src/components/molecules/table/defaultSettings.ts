@@ -11,6 +11,7 @@ export interface ITableProps<T extends IExtractorObject> {
   columns: IColumnsProps<T>[];
   rows: T[];
   rowsProps: {
+    rowAction?: (item: T) => void;
     keyExtractor: (item: T) => string | number;
   };
 }

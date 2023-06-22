@@ -6,20 +6,42 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";
 import { convertFileToBase64 } from "@utils/convertFileToBase64";
-import { TCreateProviderData, createProvider } from "@services/api/providers";
-import { useMutation } from "react-query";
+import { TCreateProviderData, createProvider, findProviderById } from "@services/api/providers";
+import { useMutation, useQuery } from "react-query";
+import { AxiosError } from "axios";
+import { IErrorResponse } from "@/interfaces/apiResponse";
+import { useLocation, useParams } from "react-router-dom";
 
 export const CreateProvider = () => {
+  const { id_provider } = useParams();
+  const isNewRecord = id_provider === 'new';
+
   const form = useForm<TCreateProviderData>({
     resolver: yupResolver(form_validation),
   });
+
+  const {} = useQuery({
+    queryKey: ['query_key_provider', id_provider],
+    queryFn: () => findProviderById(id_provider ?? '').then(({data}) => {
+      data.id === undefined;
+      form.reset(data)
+      return data;
+    }),
+    refetchOnMount: false,
+    enabled: !isNewRecord,
+  })
 
   const { mutate } = useMutation({
     mutationFn: (body: TCreateProviderData) => {
       return createProvider(body);
     },
-    onSuccess: (success) => {},
-    onError: (error) => {},
+    onSuccess: (success) => {
+      alert(success.data.success);
+      form.reset();
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      alert(error.response?.data.error)
+    },
   });
 
   const handleSubmit = async (onValid: TCreateProviderData) => {

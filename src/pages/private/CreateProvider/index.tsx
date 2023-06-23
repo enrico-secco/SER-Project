@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";
 import { convertFileToBase64 } from "@utils/convertFileToBase64";
-import { TCreateProviderData, createProvider, findProviderById } from "@services/api/providers";
+import { TCreateProviderData, createProvider, findProviderById, updateProvider } from "@services/api/providers";
 import { useMutation, useQuery } from "react-query";
 import { AxiosError } from "axios";
 import { IErrorResponse } from "@/interfaces/apiResponse";
@@ -44,12 +44,25 @@ export const CreateProvider = () => {
     },
   });
 
+  const { mutate: updateMutation } = useMutation({
+    mutationFn: (body: TCreateProviderData) => {
+      return updateProvider(body, id_provider ?? '');
+    },
+    onSuccess: (success) => {
+      alert(success.data.success);
+      form.reset();
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      alert(error.response?.data.error)
+    },
+  });
+
   const handleSubmit = async (onValid: TCreateProviderData) => {
     const profilePicBase64 = await convertFileToBase64(
       onValid.profilePic[0] as File
     );
     onValid.profilePic = profilePicBase64;
-    mutate(onValid);
+    isNewRecord ? mutate(onValid) : updateMutation(onValid);
   };
 
   return (

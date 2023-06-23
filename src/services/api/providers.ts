@@ -21,3 +21,10 @@ export type TCreateProviderData = Omit<IProvider, "id">;
 export const createProvider = (body: TCreateProviderData) => {
   return api.post<ISuccessResponse>("/providers", body);
 };
+
+export const updateProvider = (
+  body: TCreateProviderData,
+  provider_id: string
+) => {
+  return api.put<ISuccessResponse>(`/providers/${provider_id}`, body);
+};

@@ -6,30 +6,36 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";
 import { convertFileToBase64 } from "@utils/convertFileToBase64";
-import { TCreateProviderData, createProvider, findProviderById, updateProvider } from "@services/api/providers";
+import {
+  TCreateProviderData,
+  createProvider,
+  findProviderById,
+  updateProvider,
+} from "@services/api/providers";
 import { useMutation, useQuery } from "react-query";
 import { AxiosError } from "axios";
-import { IErrorResponse } from "@/interfaces/apiResponse";
+import { IErrorResponse } from "@/interfaces/api";
 import { useLocation, useParams } from "react-router-dom";
 
 export const CreateProvider = () => {
   const { id_provider } = useParams();
-  const isNewRecord = id_provider === 'new';
+  const isNewRecord = id_provider === "new";
 
   const form = useForm<TCreateProviderData>({
     resolver: yupResolver(form_validation),
   });
 
   const {} = useQuery({
-    queryKey: ['query_key_provider', id_provider],
-    queryFn: () => findProviderById(id_provider ?? '').then(({data}) => {
-      data.id === undefined;
-      form.reset(data)
-      return data;
-    }),
+    queryKey: ["query_key_provider", id_provider],
+    queryFn: () =>
+      findProviderById(id_provider ?? "").then(({ data }) => {
+        data.id === undefined;
+        form.reset(data);
+        return data;
+      }),
     refetchOnMount: false,
     enabled: !isNewRecord,
-  })
+  });
 
   const { mutate } = useMutation({
     mutationFn: (body: TCreateProviderData) => {
@@ -40,20 +46,20 @@ export const CreateProvider = () => {
       form.reset();
     },
     onError: (error: AxiosError<IErrorResponse>) => {
-      alert(error.response?.data.error)
+      alert(error.response?.data.error);
     },
   });
 
   const { mutate: updateMutation } = useMutation({
     mutationFn: (body: TCreateProviderData) => {
-      return updateProvider(body, id_provider ?? '');
+      return updateProvider(body, id_provider ?? "");
     },
     onSuccess: (success) => {
       alert(success.data.success);
       form.reset();
     },
     onError: (error: AxiosError<IErrorResponse>) => {
-      alert(error.response?.data.error)
+      alert(error.response?.data.error);
     },
   });
 

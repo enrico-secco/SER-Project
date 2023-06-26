@@ -1,14 +1,22 @@
+import { IPaginationResponse } from "./../../interfaces/api";
 import { IProvider } from "@/interfaces/models";
 import { api } from "../api";
-import { ISuccessResponse } from "@/interfaces/apiResponse";
+import { IPaginationRequest, ISuccessResponse } from "@/interfaces/api";
 
+type OrderType = "asc" | "desc";
 export interface IGetProviderRequest {
-  name?: string;
+  filterName?: string;
+  orderName?: OrderType;
 }
 
-export const getProviders = (params: IGetProviderRequest) => {
-  return api.get<IProvider[]>("/providers/search", {
+export const getProviders = (
+  params: IPaginationRequest<IGetProviderRequest>
+) => {
+  return api.get<IPaginationResponse<IProvider>>("/providers", {
     params,
+    headers: {
+      "X-Paginate": true,
+    },
   });
 };
 

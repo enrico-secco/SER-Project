@@ -1,7 +1,7 @@
 import { Box } from "@components/atoms/Box";
 import { Grid } from "@components/atoms/grid";
-import { Button } from "@components/molecules/buttons";
-import { Inputs } from "@components/molecules/inputs";
+import { Button } from "@components/molecules/Buttons";
+import { Inputs } from "@components/molecules/Inputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { form_validation } from "./schema";

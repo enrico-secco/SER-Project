@@ -6,15 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { IGetProviderRequest, getProviders } from "@services/api/providers";
+import { Table } from "@/components/molecules/Table";
 import { headers } from "./settings";
 import { useQueryString } from "@/hook/useQueryString";
-import { IPaginationRequest } from "@/interfaces/api";
-import { Table } from "@/components/molecules/Table";
-import { usePagination } from "@/hook/usePagination";
-
-interface IFormProps {
-  name: string;
-}
+import { IPaginationRequest, IPaginationResponse } from "@/interfaces/api";
+import { IProvider } from "@/interfaces/models";
 
 export const Providers = () => {
   const navigate = useNavigate();
@@ -23,12 +19,23 @@ export const Providers = () => {
   const [params, setParams] =
     useQueryString<IPaginationRequest<IGetProviderRequest>>();
 
-  const { data } = useQuery({
-    queryKey: ["get_all_providers", params],
-    queryFn: () => getProviders(params).then((res) => res.data),
-  });
+  const addActionToProvidersList = (
+    providers: IPaginationResponse<IProvider>
+  ) => {
+    //O parênteses já faz o return;
+    providers.docs = providers.docs.map((provider) => ({
+      ...provider,
+      actions: <span>Click-me {provider.id}</span>,
+    }));
 
-  const { nextPage, prevPage } = usePagination(data?.total ?? 0);
+    return providers;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["get_all_providers", JSON.stringify(params)],
+    queryFn: () =>
+      getProviders(params).then((res) => addActionToProvidersList(res.data)),
+  });
 
   return (
     <>
@@ -49,8 +56,6 @@ export const Providers = () => {
             placeholder="Pesquise por um usuario"
             handleClick={(text) => setParams({ filterName: text })}
           />
-          <Button.Default text="voltar" onClick={prevPage} />
-          <Button.Default text="proximo" onClick={nextPage} />
         </Grid.Item>
         <Grid.Item column={12}>
           <Box>
@@ -60,6 +65,7 @@ export const Providers = () => {
               rowsProps={{
                 keyExtractor: (item) => item.id,
                 rowAction: (item) => navigate(`/providers/${item.id}`),
+                total: data?.total,
               }}
             />
           </Box>

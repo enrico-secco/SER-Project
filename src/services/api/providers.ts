@@ -36,3 +36,7 @@ export const updateProvider = (
 ) => {
   return api.put<ISuccessResponse>(`/providers/${provider_id}`, body);
 };
+
+export const deleteProvider = (providerId: number) => {
+  return api.delete<ISuccessResponse>(`/providers/${providerId}`);
+};

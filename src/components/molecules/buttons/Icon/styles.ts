@@ -7,9 +7,9 @@ interface IContainerProps {
 }
 
 export const Container = styled.button<IContainerProps>`
-  padding: 0.7em 2em;
+  padding: 2em;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   font-weight: bold;
   gap: 10px;
   display: flex;
@@ -20,7 +20,7 @@ export const Container = styled.button<IContainerProps>`
   ${({ color, background, size }) => {
     return `
       color: ${color ?? "#fff"};
-      background: ${background ?? "#319795"};
+      background: ${background ?? "#fff"};
       font-size: ${size}
     `;
   }}

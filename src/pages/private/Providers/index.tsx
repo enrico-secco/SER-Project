@@ -4,28 +4,59 @@ import { Inputs } from "@components/molecules/Inputs";
 import { Box } from "@components/atoms/Box";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import { IGetProviderRequest, getProviders } from "@services/api/providers";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  IGetProviderRequest,
+  deleteProvider,
+  getProviders,
+} from "@services/api/providers";
 import { Table } from "@/components/molecules/Table";
 import { headers } from "./settings";
 import { useQueryString } from "@/hook/useQueryString";
 import { IPaginationRequest, IPaginationResponse } from "@/interfaces/api";
 import { IProvider } from "@/interfaces/models";
+import { useToast } from "@/stores/hook/useToast";
+import { IconButton } from "@/components/molecules/Buttons/Icon";
 
 export const Providers = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { addToast } = useToast();
   const form = useForm<IPaginationRequest<IGetProviderRequest>>();
 
   const [params, setParams] =
     useQueryString<IPaginationRequest<IGetProviderRequest>>();
 
+  const { mutate } = useMutation({
+    mutationFn: (providerId: number) =>
+      deleteProvider(providerId).then((res) => res.data),
+    onSuccess: (data) => {
+      addToast({
+        title: data.success,
+        type: "success",
+      });
+      queryClient.invalidateQueries([
+        "get_all_providers",
+        JSON.stringify(params),
+      ]);
+    },
+  });
+
   const addActionToProvidersList = (
     providers: IPaginationResponse<IProvider>
   ) => {
-    //O parênteses já faz o return;
+    //O parenteses já faz o return;
     providers.docs = providers.docs.map((provider) => ({
       ...provider,
-      actions: <span>Click-me {provider.id}</span>,
+      actions: (
+        <Button.Default
+          text="Deletar"
+          background="#d12020"
+          color="#fff"
+          startIcon="delete"
+          onClick={() => mutate(provider.id)}
+        />
+      ),
     }));
 
     return providers;

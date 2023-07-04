@@ -17,6 +17,7 @@ interface IDefaultProps extends React.ButtonHTMLAttributes<any> {
   size?: keyof typeof sizes;
   startIcon?: string;
   endIcon?: string;
+  isLoading?: boolean;
 }
 
 export const Default = (props: IDefaultProps) => {
@@ -28,11 +29,19 @@ export const Default = (props: IDefaultProps) => {
       size={fontSize}
       onClick={props.onClick}
     >
-      {props.startIcon && (
-        <Icon name={props.startIcon ?? ""} color={props.color} />
+      {props.isLoading ? (
+        <Icon name="loading" color="#FFF" />
+      ) : (
+        <>
+          {props.startIcon && (
+            <Icon name={props.startIcon ?? ""} color={props.color} />
+          )}
+          {props.text}
+          {props.endIcon && (
+            <Icon name={props.endIcon ?? ""} color={props.color} />
+          )}
+        </>
       )}
-      {props.text}
-      {props.endIcon && <Icon name={props.endIcon ?? ""} color={props.color} />}
     </Container>
   );
 };

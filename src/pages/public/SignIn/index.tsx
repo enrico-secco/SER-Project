@@ -1,13 +1,13 @@
 import { Box } from "@/components/atoms/Box";
 import { Grid } from "@/components/atoms/grid";
-import { Button } from "@/components/molecules/buttons";
-import { Inputs } from "@/components/molecules/inputs";
+import { Button } from "@/components/molecules/Buttons";
+import { Inputs } from "@/components/molecules/Inputs";
 import { ISignInProps, useAuth } from "@/stores/hook/useAuth";
 import { useForm } from "react-hook-form";
 import { Container } from "./styles";
 
 export const SignIn = () => {
-  const { signIn } = useAuth();
+  const { signIn, isLoading } = useAuth();
 
   const form = useForm<ISignInProps>();
 
@@ -29,6 +29,7 @@ export const SignIn = () => {
           <Button.Default
             text="Sign in"
             onClick={form.handleSubmit(handleSignIn)}
+            isLoading={isLoading}
           />
         </Grid.Container>
       </Box>

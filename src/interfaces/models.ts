@@ -5,5 +5,6 @@ export interface IProvider {
   email: string;
   cpf: string;
   bio: string;
-  profilePic: FileList | string;
+  profilePic?: any;
+  color: string;
 }

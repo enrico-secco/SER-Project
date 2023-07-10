@@ -8,5 +8,5 @@ export const Span = styled.span.attrs({
   className: "material-icons",
 })<ISpanProps>`
   font-size: 1rem;
-  color: ${({ color }) => color};
+  color: ${({ color }) => color ?? "#d9d9d9"};
 `;

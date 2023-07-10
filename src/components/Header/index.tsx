@@ -23,7 +23,6 @@ export const Header = () => {
   return (
     <div>
       <HeaderComponent>
-        bvc
         <img src={logo} />
         <Navbar>
           <ul>
@@ -36,7 +35,12 @@ export const Header = () => {
                 {menu.title}
               </ItemMenu>
             ))}
-            <Button.IconButton color="#d45" icon="logout" onClick={signOut} />
+            <Button.IconButton
+              color="#d45"
+              icon="logout"
+              onClick={signOut}
+              background="transparent"
+            />
           </ul>
         </Navbar>
       </HeaderComponent>

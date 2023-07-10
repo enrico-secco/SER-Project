@@ -30,7 +30,7 @@ export const Default = (props: IDefaultProps) => {
       onClick={props.onClick}
     >
       {props.isLoading ? (
-        <Icon name="loading" color="#FFF" />
+        <Icon name="refresh" color="#FFF" />
       ) : (
         <>
           {props.startIcon && (

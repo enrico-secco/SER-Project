@@ -16,7 +16,7 @@ import { useQueryString } from "@/hook/useQueryString";
 import { IPaginationRequest, IPaginationResponse } from "@/interfaces/api";
 import { IProvider } from "@/interfaces/models";
 import { useToast } from "@/stores/hook/useToast";
-import { IconButton } from "@/components/molecules/Buttons/Icon";
+import { Breadcrumbs } from "@/components/molecules/Breadcrumbs";
 
 export const Providers = () => {
   const queryClient = useQueryClient();
@@ -70,6 +70,9 @@ export const Providers = () => {
 
   return (
     <>
+      <Breadcrumbs
+        menus={[{ label: "Home", path: "/home" }, { label: "Prestadores" }]}
+      />
       <Grid.Container columns={12}>
         <Grid.Item column={4}>
           <Button.Default

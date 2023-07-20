@@ -7,24 +7,24 @@ import { Button } from "../molecules/Buttons";
 export const Header = () => {
   const { pathname } = useLocation();
   const { signOut } = useAuth();
-  const menus = [
-    {
-      id: 1,
-      title: "HOME",
-      path: "/home",
-    },
-    {
-      id: 2,
-      title: "PRESTADORES",
-      path: "/providers",
-    },
-  ];
+  // const menus = [
+  //   {
+  //     id: 1,
+  //     title: "HOME",
+  //     path: "/home",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "PRESTADORES",
+  //     path: "/providers",
+  //   },
+  // ];
 
   return (
     <div>
       <HeaderComponent>
         <img src={logo} />
-        <Navbar>
+        {/* <Navbar>
           <ul>
             {menus.map((menu) => (
               <ItemMenu
@@ -42,7 +42,7 @@ export const Header = () => {
               background="transparent"
             />
           </ul>
-        </Navbar>
+        </Navbar> */}
       </HeaderComponent>
     </div>
   );

@@ -1,12 +1,17 @@
+import theme from "@/global/styles/theme";
+import { TColorKeys, TFontSizeKeys } from "@/interfaces/theme";
 import styled from "styled-components";
 
 interface ISpanProps {
-  color?: string;
+  color?: TColorKeys;
+  size?: TFontSizeKeys;
 }
 
 export const Span = styled.span.attrs({
   className: "material-icons",
 })<ISpanProps>`
-  font-size: 1rem;
-  color: ${({ color }) => color ?? "#d9d9d9"};
+  ${({ theme, color, size }) => `
+    font-size: ${size ?? theme.fontSize[size ?? "md"]};
+    color: ${color ?? theme.colors[color ?? "primaryContrast"]};
+  `}
 `;

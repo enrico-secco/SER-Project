@@ -36,7 +36,7 @@ export const File = ({
         <Label text={label} isRequired={isRequired}></Label>
         <DropZone htmlFor="field-file">
           <ContainerIcon>
-            <Icon name="image" size="lg" color="#366EC2" />
+            <Icon name="image" size="md" color="primary" />
           </ContainerIcon>
           <span>{spanMessage}</span>
         </DropZone>

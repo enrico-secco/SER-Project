@@ -27,7 +27,7 @@ export const SignIn = () => {
             label="Password"
           />
           <Button.Default
-            text="Sign in"
+            text="SIGN IN"
             onClick={form.handleSubmit(handleSignIn)}
             isLoading={isLoading}
           />

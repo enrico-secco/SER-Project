@@ -1,9 +1,10 @@
+import { TColorKeys, TFontSizeKeys } from "@/interfaces/theme";
 import styled from "styled-components";
 
 interface IContainerProps {
-  color?: string;
-  background?: string;
-  size?: string;
+  color?: TColorKeys;
+  background?: TColorKeys;
+  size?: TFontSizeKeys;
 }
 
 export const Container = styled.button<IContainerProps>`
@@ -17,11 +18,11 @@ export const Container = styled.button<IContainerProps>`
   align-items: center;
   cursor: pointer;
 
-  ${({ color, background, size }) => {
+  ${({ color, background, size, theme }) => {
     return `
-      color: ${color ?? "#fff"};
-      background: ${background ?? "#319795"};
-      font-size: ${size}
+      color: ${theme.colors[color ?? "primaryContrast"]};
+      background: ${theme.colors[background ?? "primary"]};
+      font-size: ${theme.fontSize[size ?? "sm"]}
     `;
   }}
 `;

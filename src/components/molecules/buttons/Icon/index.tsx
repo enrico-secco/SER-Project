@@ -1,11 +1,12 @@
-import { Icon, iconSizes } from "@components/atoms/Icon";
+import { Icon } from "@components/atoms/Icon";
 import { Container } from "./styles";
+import { TColorKeys, TFontSizeKeys } from "@/interfaces/theme";
 
 interface IIconButtonProps extends React.ButtonHTMLAttributes<any> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  color: string;
+  color: TColorKeys;
   background?: string;
-  size?: keyof typeof iconSizes;
+  size?: TFontSizeKeys;
   icon: string;
   isLoading?: boolean;
 }

@@ -51,8 +51,7 @@ export const Providers = () => {
       actions: (
         <Button.Default
           text="Deletar"
-          background="#d12020"
-          color="#fff"
+          background="error"
           startIcon="delete"
           onClick={() => mutate(provider.id)}
         />
@@ -78,7 +77,7 @@ export const Providers = () => {
           <Button.Default
             text="Novo prestador"
             size="md"
-            endIcon="person_add_alt"
+            startIcon="person_add_alt"
             onClick={() => navigate("/providers/new")}
           />
         </Grid.Item>

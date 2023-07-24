@@ -50,11 +50,14 @@ export const NavbarList = styled.ul`
   flex-direction: column;
   overflow-y: auto;
   flex: 1;
+  overflow-x: hidden;
 `;
 
 export const NavbarItem = styled.li`
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
   padding: 1rem;
   width: 100%;
 `;
@@ -69,9 +72,7 @@ export const Link = styled(LinkDOM)<ILinkProps>`
   ${({ isActive, isOpenSidebar }) => `
     color: ${isActive ? "#cc2255" : "#333"} !important;
     background-color: ${isActive ? "#cc22553b" : "#fff"};
-    font-weight: ${isActive ? "bold" : "500"};
-
-    
+    font-weight: ${isActive ? "bold" : "500"};   
   
     ${
       !isOpenSidebar &&
@@ -83,6 +84,8 @@ export const Link = styled(LinkDOM)<ILinkProps>`
 `;
 
 export const ContentChildren = styled.div<ISidebarProps>`
+  max-width: -webkit-fill-available;
+
   ${({ isOpenSidebar }) => `
     padding-left: ${WIDTH_SIDEBAR[isOpenSidebar ? "OPEN" : "CLOSED"]};
   `}
